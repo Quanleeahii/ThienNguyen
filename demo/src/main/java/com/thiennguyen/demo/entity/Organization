@@ -1,0 +1,55 @@
+//package com.thiennguyen.demo.entity;
+//
+//import jakarta.persistence.*;
+//import lombok.Getter;
+//import lombok.Setter;
+//import org.hibernate.annotations.Nationalized;
+//import java.time.LocalDate;
+//
+//@Entity
+//@Table(name = "organizations")
+//@Getter
+//@Setter
+//public class Organization {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
+//
+//    @Nationalized
+//    @Column(name = "org_name", nullable = false)
+//    private String orgName;
+//
+//    // THÊM MỚI: Logo của tổ chức
+//    @Column(name = "logo_url")
+//    private String logoUrl;
+//
+//    @Column(name = "establishment_date")
+//    private LocalDate establishmentDate;
+//
+//    // THÊM MỚI: Mã số thuế hoặc Số quyết định thành lập để minh bạch
+//    @Column(name = "tax_code")
+//    private String taxCode;
+//
+//    private String website;
+//
+//    @Nationalized
+//    private String address;
+//
+//    @Nationalized
+//    @Column(name = "activity_field")
+//    private String activityField; // Lĩnh vực hoạt động
+//
+//    // THÊM MỚI: Trạng thái xác duyệt của Admin (Mặc định khi mới tạo là false)
+//    @Column(name = "is_verified")
+//    private Boolean isVerified = false;
+//
+//    // Một User (Người đại diện) có thể tạo 1 tổ chức
+//    @OneToOne
+//    @JoinColumn(name = "representative_id", referencedColumnName = "id")
+//    private User representative;
+//    // Một Tổ chức có thể có Nhiều chiến dịch
+//    // mappedBy = "organization" phải khớp chính xác với tên biến bên class Campaign
+//    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
+//    private java.util.List<Campaign> campaigns;
+//}

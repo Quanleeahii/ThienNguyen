@@ -1,0 +1,81 @@
+.choice-container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.choice-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #eaeaea !important;
+    background-color: #ffffff;
+    height: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.choice-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.icon-box {
+    width: 90px;
+    height: 90px;
+    background: #fff8f3;
+    color: #ff6a00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    transition: 0.3s;
+}
+
+.choice-card:hover .icon-box {
+    background: #ff6a00;
+    color: #ffffff;
+}
+
+.choice-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.choice-desc {
+    color: #6c757d;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.btn-choice {
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+}
+
+.btn-person {
+    background: linear-gradient(90deg, #ff6a00, #ffb347);
+    color: white;
+    border: none;
+}
+
+.btn-person:hover {
+    background: linear-gradient(90deg, #e65c00, #ff9500);
+    color: white;
+}
+
+.btn-org {
+    border: 2px solid #ff6a00;
+    color: #ff6a00;
+    background: transparent;
+}
+
+.btn-org:hover {
+    background: #ff6a00;
+    color: white;
+}

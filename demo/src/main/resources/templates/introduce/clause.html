@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Điều khoản sử dụng | Ươm Mầm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/clause.css}">
+</head>
+
+<body class="bg-light">
+
+<div th:replace="~{layout/header :: header}"></div>
+
+<main class="container py-5 mt-4">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold title-orange">Điều khoản sử dụng</h1>
+        <p class="text-muted">Cập nhật lần cuối: 11/03/2026, 18:01</p>
+    </div>
+
+    <div class="bg-white p-5 rounded-4 shadow-sm mx-auto clause-content">
+
+        <div class="clause-text text-secondary">
+            <p>Chào mừng bạn đến với Nền tảng Ươm Mầm.</p>
+            <p>Để đồng hành hiệu quả cùng cộng đồng và thực hiện sứ mệnh thiện nguyện một cách minh bạch, bền vững, bạn vui lòng dành thời gian đọc kỹ và tìm hiểu các điều khoản dưới đây trước khi sử dụng Nền tảng.</p>
+
+            <h5 class="fw-bold mt-5 mb-3 text-dark">GIẢI THÍCH KHÁI NIỆM</h5>
+
+            <ul class="list-terms">
+                <li><strong>1. "Nền tảng Ươm Mầm"</strong> (gọi tắt là "Nền tảng") là nền tảng số hỗ trợ khách hàng khởi tạo, quản lý và công khai minh bạch các hoạt động thiện nguyện thông qua Tài khoản thanh toán minh bạch và các giải pháp số tích hợp. Nền tảng bao gồm các kênh số tích hợp (website, ứng dụng, mini app) và các công cụ hỗ trợ như quản lý chiến dịch, theo dõi đóng góp, công khai tài khoản thanh toán minh bạch, báo cáo thu chi và kết nối cộng đồng.</li>
+                <li><strong>2. Người dùng:</strong> là các cá nhân và tổ chức sử dụng Nền Tảng và được cấp Tài khoản sử dụng dưới các vai trò khác nhau như người vận động, người ủng hộ, người đồng hành,...</li>
+                <li><strong>3. Tài khoản sử dụng:</strong> là tài khoản người dùng trên Nền Tảng được Nền Tảng cấp quyền sử dụng để thực hiện các hoạt động theo quy định. Mỗi một đăng ký thành công gồm tên đăng nhập và mật khẩu thông qua đường dẫn được gửi đến số điện thoại/email của Người dùng được tính là 01 (một) tài khoản sử dụng.</li>
+                <li><strong>4. Người vận động:</strong> là Người dùng được cấp và liên kết Tài khoản thanh toán minh bạch với Tài khoản sử dụng.</li>
+                <li><strong>5. Người ủng hộ:</strong> là tất cả các cá nhân, tổ chức có nhu cầu đóng góp cho các Chiến dịch thông qua Tài khoản thiện nguyện.</li>
+                <li><strong>6. Chiến dịch:</strong> là chương trình vận động, tiếp nhận, phân phối nguồn đóng góp tự nguyện cho các hoạt động từ thiện, vì cộng đồng do Người vận động tuyên truyền, thực hiện và đăng tải trên Nền tảng theo đúng điều khoản sử dụng của Nền tảng và quy định pháp luật.</li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

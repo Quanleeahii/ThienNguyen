@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="header">
+  <link rel="stylesheet" th:href="@{/css/header-footer.css}">
+
+  <nav class="navbar navbar-expand-lg fixed-top shadow-sm custom-nav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+        <i class="fa-solid fa-seedling me-2 logo-icon"></i>
+        <span class="logo-text fw-bold">Ươm Mầm</span>
+      </a>
+
+      <form class="d-flex ms-3 me-4 search-box" th:action="@{/tim-kiem}" method="GET">
+        <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0" id="search-icon">
+                        <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                    </span>
+          <input class="form-control border-start-0 ps-0 input-search" type="search" name="keyword" placeholder="Tìm chiến dịch, tổ chức..." aria-describedby="search-icon">
+        </div>
+      </form>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-medium">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ủng hộ</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/danh-sach-chien-dich}">Chiến dịch</a></li>
+              <li><a class="dropdown-item" th:href="@{/dong-hanh}">Đồng hành</a></li>
+              <li><a class="dropdown-item" th:href="@{/to-chuc-gay-quy}">Tổ chức gây quỹ</a></li>
+              <li><a class="dropdown-item" th:href="@{/ca-nhan-gay-quy}">Cá nhân gây quỹ</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gây quỹ</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/tao-chien-dich/bat-dau}">Bắt đầu</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Khám phá</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/ban-do-thien-nguyen}">Bản đồ thiện nguyện</a></li>
+              <li><a class="dropdown-item" th:href="@{/su-kien-thien-nguyen}">Sự kiện thiện nguyện</a></li>
+              <li><a class="dropdown-item" th:href="@{/bang-tin}">Bảng tin</a></li>
+              <li><a class="dropdown-item" th:href="@{/tin-tuc}">Tin tức</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giới thiệu</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/ve-thien-nguyen}">Về thiện nguyện</a></li>
+              <li><a class="dropdown-item" th:href="@{/hoi-dap}">Hỏi đáp</a></li>
+              <li><a class="dropdown-item" th:href="@{/dieu-khoan}">Điều khoản</a></li>
+              <li><a class="dropdown-item" th:href="@{/chinh-sach-bao-mat}">Chính sách bảo mật</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-3">
+          <a th:href="@{/tao-chien-dich/bat-dau}" class="btn-cam fw-bold rounded-pill px-4">Tạo chiến dịch</a>
+
+          <div th:if="${session.loggedInUser == null}">
+            <a class="nav-link fw-bold login-link" th:href="@{/dang-nhap}">Đăng nhập</a>
+          </div>
+
+          <div th:if="${session.loggedInUser != null}" class="dropdown">
+            <a class="text-decoration-none dropdown-toggle d-flex align-items-center fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img th:src="@{/images/default-avatar.png}" alt="Avatar" class="rounded-circle me-2" style="width: 36px; height: 36px; object-fit: cover; border: 1px solid #e0e0e0;">
+              <span th:text="${session.loggedInUser.fullName}"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-3" style="border-radius: 12px; min-width: 200px;">
+              <li><a class="dropdown-item py-2" href="#"><i class="fa-regular fa-user me-2 text-muted"></i> Hồ sơ cá nhân</a></li>
+              <li><a class="dropdown-item py-2" href="#"><i class="fa-solid fa-clock-rotate-left me-2 text-muted"></i> Lịch sử hoạt động</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item py-2 text-danger fw-bold" th:href="@{/dang-xuat}"><i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+</body>
+</html>

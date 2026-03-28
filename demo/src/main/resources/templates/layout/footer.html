@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<footer th:fragment="footer" class="footer">
+
+    <link rel="stylesheet" th:href="@{/css/header-footer.css}">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <h4 class="footer-logo d-flex align-items-center">
+                    <i class="fa-solid fa-seedling me-2"></i>
+                    Ươm Mầm
+                </h4>
+                <p class="footer-slogan">Ươm mầm hy vọng, thắp sáng ước mơ</p>
+            </div>
+
+            <div class="col-md-2">
+                <h6>Ủng hộ</h6>
+                <ul class="footer-list">
+                    <li><a th:href="@{/chien-dich}">Chiến dịch</a></li>
+                    <li><a th:href="@{/dong-hanh}">Đồng hành</a></li>
+                    <li><a th:href="@{/to-chuc-gay-quy}">Tổ chức gây quỹ</a></li>
+                    <li><a th:href="@{/ca-nhan-gay-quy}">Cá nhân gây quỹ</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2">
+                <h6>Gây quỹ</h6>
+                <ul class="footer-list">
+                    <li><a th:href="@{/bat-dau}">Bắt đầu</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2">
+                <h6>Khám phá</h6>
+                <ul class="footer-list">
+                    <li><a th:href="@{/ban-do-thien-nguyen}">Bản đồ thiện nguyện</a></li>
+                    <li><a th:href="@{/su-kien-thien-nguyen}">Sự kiện thiện nguyện</a></li>
+                    <li><a th:href="@{/bang-tin}">Bảng tin</a></li>
+                    <li><a th:href="@{/tin-tuc}">Tin tức</a></li>
+                </ul>
+                <div class="tag-green">#HiGreen</div>
+                <div class="tag-truongsa">
+                    <span>#HiGreen</span>
+                    <b>TRƯỜNG SA</b>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <h6>Giới thiệu</h6>
+                <ul class="footer-list">
+                    <li><a th:href="@{/ve-thien-nguyen}">Về thiện nguyện</a></li>
+                    <li><a th:href="@{/hoi-dap}">Hỏi đáp</a></li>
+                    <li><a th:href="@{/dieu-khoan}">Điều khoản sử dụng</a></li>
+                    <li><a th:href="@{/chinh-sach-bao-mat}">Chính sách bảo mật</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2">
+                <h6>Tải app để tham gia cộng đồng</h6>
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" class="app-btn" alt="App Store">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" class="app-btn" alt="Google Play">
+            </div>
+        </div>
+
+        <hr class="footer-line">
+
+        <p class="footer-desc">
+            Giải pháp thuộc Đề án Hệ tri thức Việt số hóa (iTrithuc),<br>
+            cấu phần Nền tảng nhân đạo số quốc gia do Nhóm 6 xây dựng và vận hành
+        </p>
+        <p class="footer-powered">
+            Powered by <span class="mb">N6</span>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

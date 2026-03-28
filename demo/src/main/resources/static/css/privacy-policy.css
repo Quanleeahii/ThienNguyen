@@ -1,0 +1,41 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.title-orange {
+    color: #ff6a00;
+}
+
+.policy-content {
+    max-width: 900px;
+}
+
+.policy-content p,
+.policy-content ul {
+    line-height: 1.8;
+    color: #444;
+}
+
+.policy-content ul {
+    padding-left: 20px;
+}
+
+.policy-content ul li {
+    margin-bottom: 12px;
+}
+
+.policy-content ul ul {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style-type: circle;
+}
+
+@media (max-width: 768px) {
+    .title-orange {
+        font-size: 28px !important;
+    }
+
+    .policy-content h5 {
+        font-size: 18px !important;
+    }
+}

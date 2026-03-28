@@ -1,0 +1,63 @@
+body {
+    background-color: #f9fafb;
+.campaign-title {
+    color: #2b3035;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+}
+.tag-box {
+    background-color: white;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #f0f0f0;
+}
+.nav-tabs-custom {
+    border-bottom: 2px solid #f0f0f0;
+    gap: 10px;
+}
+.nav-tabs-custom .nav-link {
+    border: none;
+    color: #888;
+    padding: 12px 20px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    background: transparent;
+    font-size: 16px;
+}
+.nav-tabs-custom .nav-link:hover {
+    color: #ff6a00;
+    background: #fff8f3;
+    border-radius: 8px 8px 0 0;
+}
+.nav-tabs-custom .nav-link.active {
+    color: #ff6a00;
+    border-bottom: 3px solid #ff6a00;
+    background: transparent;
+}
+.story-text {
+    line-height: 1.8;
+    color: #444;
+    font-size: 16px;
+    overflow-wrap: break-word;
+}
+.story-text img {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.story-text iframe {
+    max-width: 100%;
+    border-radius: 12px;
+}
+.story-text p {
+    margin-bottom: 16px;
+}
+.sticky-sidebar {
+    top: 25px !important;
+    z-index: 10;
+}

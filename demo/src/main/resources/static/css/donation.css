@@ -1,0 +1,85 @@
+:root {
+    --primary-orange: #f26b21;
+    --hover-orange: #d95a1a;
+    --bg-light: #fbf9f6;
+}
+
+body {
+    background-color: var(--bg-light);
+}
+
+.card-custom {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    background: #fff;
+}
+
+.btn-orange {
+    background-color: var(--primary-orange);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-orange:hover {
+    background-color: var(--hover-orange);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.amount-btn {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    color: #495057;
+    background: white;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.amount-btn:hover, .amount-btn.active {
+    border-color: var(--primary-orange);
+    color: var(--primary-orange);
+    background-color: #fff4ef;
+}
+
+.amount-input-group .form-control {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-orange);
+    border-right: none;
+}
+
+.amount-input-group .input-group-text {
+    background: white;
+    border-left: none;
+    color: var(--primary-orange);
+    font-weight: bold;
+}
+
+.modal-header-custom {
+    background-color: var(--primary-orange);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-header-custom .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.copy-btn {
+    cursor: pointer;
+    color: var(--primary-orange);
+    transition: 0.2s;
+}
+
+.copy-btn:hover {
+    color: var(--hover-orange);
+    transform: scale(1.1);
+}
+
+.progress-orange .progress-bar {
+    background-color: var(--primary-orange);
+}

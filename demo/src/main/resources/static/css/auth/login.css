@@ -1,0 +1,35 @@
+body.login-page { background: radial-gradient(circle at center, #ffffff 0%, #fde8d7 100%); margin: 0; padding: 0; }
+.login-container { min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+.back-home-btn { position: absolute; top: 20px; left: 20px; background: #ffffff; color: #ff6a00; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: 500; font-size: 14.5px; border: 1px solid #ffeedb; box-shadow: 0 4px 10px rgba(0,0,0,0.03); z-index: 20; }
+.back-home-btn:hover { background: #fff4ea; color: #ff6a00; }
+.form-box { position: relative; background: #ffffff; padding: 40px; padding-top: 65px; border-radius: 20px; box-shadow: 0 10px 30px rgba(255, 106, 0, 0.08); width: 100%; max-width: 450px; }
+
+.form-control {
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.form-control:focus,
+.form-control:not(:placeholder-shown) {
+    background-color: #eef4ff !important;
+    border-color: #b6cbf2 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.error-text-custom { color: #ff3b30; font-size: 14.5px; margin-bottom: 20px; font-weight: 500; }
+.eye-icon-custom { cursor: pointer; color: #343a40; font-size: 16px; padding: 10px; right: 5px !important; z-index: 10; }
+.eye-icon-custom:hover { color: #343a40 !important; box-shadow: none !important; }
+.btn-orange-gradient { background: linear-gradient(90deg, #ff6a00, #ffb347); color: white; border: none; border-radius: 25px; }
+.btn-orange-gradient:hover { color: white; }
+.register-text a, .forgot-password { color: #ff6a00; transition: color 0.2s ease; }
+.register-text a:hover, .forgot-password:hover { text-decoration: underline !important; color: #e65c00; }
+.error-msg { font-size: 13px; text-align: left; font-weight: 500; display: block; margin-top: 5px; }
+.error-msg:empty { display: none; margin-top: 0; }
+.form-control.is-invalid { border-color: #dc3545 !important; background-image: none !important; padding-right: 40px !important; background-color: #ffffff !important; }
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+    -webkit-text-fill-color: #212529 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}

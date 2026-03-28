@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quyên góp</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" th:href="@{/css/donation.css}">
+</head>
+<body>
+
+<div th:replace="~{layout/header :: header}"></div>
+
+<main class="container my-5">
+  <div class="row g-4">
+
+    <div class="col-lg-5">
+      <div class="card-custom p-4 h-100">
+        <div class="d-flex align-items-center mb-3">
+          <img src="https://i.pravatar.cc/150?img=32" alt="Avatar" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;">
+          <div>
+            <small class="text-muted d-block" style="font-size: 0.8rem;">Tiền ủng hộ được chuyển đến</small>
+            <span class="fw-bold text-danger" th:text="${campaign.bankAccountName}">Lý Chí Thành</span>
+            <i class="fa-solid fa-circle-check text-danger ms-1" style="font-size: 0.8rem;"></i>
+          </div>
+        </div>
+
+        <p class="text-muted small mb-2">Bạn đang ủng hộ cho chiến dịch</p>
+        <div class="position-relative mb-3">
+          <img th:src="@{${campaign.imageUrl}}" class="w-100 rounded-3" alt="Campaign Image" style="object-fit: cover; height: 220px;">
+          <span class="position-absolute top-0 start-0 bg-white text-dark px-2 py-1 m-2 rounded-2 small fw-bold">
+                        Còn <span th:text="${campaign.daysRemaining}">257</span> ngày
+                    </span>
+        </div>
+
+        <h5 class="fw-bold mb-3" th:text="${campaign.title}">Xây nhà ở cho trẻ không nơi nương tựa...</h5>
+
+        <div class="d-flex justify-content-between mb-1 small">
+          <span class="text-muted">Đã đạt được</span>
+          <span class="fw-bold" th:text="${campaign.progressPercentage} + '%'">7%</span>
+        </div>
+        <div class="fw-bold text-danger mb-2" th:text="${#numbers.formatDecimal(campaign.currentAmount ?: 0, 0, 'COMMA', 0, 'POINT')} + ' VND'">133.044.794 VND</div>
+
+        <div class="progress progress-orange mb-3" style="height: 6px;">
+          <div class="progress-bar" role="progressbar" th:styleappend="'width: ' + ${campaign.progressPercentage} + '%'"></div>
+        </div>
+
+        <div class="d-flex justify-content-between small text-muted">
+          <span>Của mục tiêu <strong class="text-dark" th:text="${#numbers.formatDecimal(campaign.targetAmount ?: 0, 0, 'COMMA', 0, 'POINT')} + ' VND'">2.000.000.000 VND</strong></span>
+          <span><strong class="text-dark" th:text="${campaign.donationCount ?: 0}">1.588</strong> lượt ủng hộ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <div class="card-custom p-4 h-100">
+        <h4 class="fw-bold mb-4">Thông tin ủng hộ</h4>
+
+        <form id="donationForm">
+
+          <input type="hidden" id="campaignId" th:value="${campaign.id}">
+          <span class="d-none bank-name-short" th:text="${campaign.bankName}">MB</span>
+
+          <div class="mb-4">
+            <label class="form-label text-muted small">Nhập số tiền ủng hộ <span class="text-danger">*</span></label>
+            <div class="input-group amount-input-group mb-3">
+              <input type="text" class="form-control" id="donationAmount" placeholder="0" value="50.000" required>
+              <span class="input-group-text">VND</span>
+            </div>
+
+            <div class="row g-2">
+              <div class="col-3"><button type="button" class="btn w-100 amount-btn active" data-value="50000">50.000</button></div>
+              <div class="col-3"><button type="button" class="btn w-100 amount-btn" data-value="100000">100.000</button></div>
+              <div class="col-3"><button type="button" class="btn w-100 amount-btn" data-value="200000">200.000</button></div>
+              <div class="col-3"><button type="button" class="btn w-100 amount-btn" data-value="500000">500.000</button></div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label text-muted small">Lời chúc</label>
+            <textarea class="form-control" id="donationMessage" rows="2" placeholder="Nhập lời chúc trao gửi yêu thương"></textarea>
+          </div>
+
+          <hr class="text-muted mb-4">
+
+          <h5 class="fw-bold mb-3 fs-6">Thông tin của bạn</h5>
+          <div class="mb-3">
+            <label class="form-label text-muted small">Họ và tên</label>
+            <input type="text" id="donorName" class="form-control p-2" placeholder="Nhập họ và tên">
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-muted small">Email</label>
+            <input type="email" id="donorEmail" class="form-control p-2" placeholder="Nhập địa chỉ email">
+            <div class="form-text small">Bạn sẽ nhận được một email xác nhận về thông tin đóng góp của mình</div>
+          </div>
+
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="anonymousCheck">
+            <label class="form-check-label text-muted small" for="anonymousCheck">Ủng hộ ẩn danh</label>
+          </div>
+
+          <button type="button" class="btn btn-orange w-100 py-3 fs-5" id="btnOpenModal">
+            Ủng hộ
+          </button>
+          <div class="text-center mt-3 small text-muted">
+            Bằng việc ủng hộ, bạn đã đồng ý với <a href="#" class="text-decoration-none text-danger">Điều khoản sử dụng</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4 border-0 overflow-hidden">
+      <div class="modal-header modal-header-custom p-4">
+        <h5 class="modal-title fw-bold mx-auto ps-4">Thanh toán</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4 p-md-5 bg-light">
+        <div class="row align-items-center g-4">
+          <div class="col-md-7">
+            <table class="table table-borderless mb-0">
+              <tbody>
+              <tr>
+                <td class="text-muted ps-0" style="width: 40%;">Ngân hàng</td>
+                <td class="fw-bold text-dark" th:text="${campaign.bankName}">Ngân hàng TMCP Quân Đội (MB Bank)</td>
+              </tr>
+              <tr>
+                <td class="text-muted ps-0">Số tài khoản thiện nguyện</td>
+                <td class="fw-bold text-danger fs-5 bank-acc-number" th:text="${campaign.bankAccountNumber}">8062</td>
+              </tr>
+              <tr>
+                <td class="text-muted ps-0">Chủ tài khoản</td>
+                <td class="fw-bold text-danger bank-acc-name" th:text="${campaign.bankAccountName}">LY CHI THANH</td>
+              </tr>
+              <tr>
+                <td class="text-muted ps-0">Số tiền</td>
+                <td class="fw-bold text-danger fs-5" id="modalDisplayAmount">50.000 VND</td>
+              </tr>
+              <tr>
+                <td class="text-muted ps-0">Nội dung chuyển khoản</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <span class="fw-bold text-dark me-2" id="transferMemo" th:text="'UH ' + ${campaign.id} + ' XAY DUNG NHA'">UH3721RBU...</span>
+                    <i class="fa-regular fa-copy copy-btn" title="Sao chép nội dung" onclick="copyMemo()"></i>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="mt-4 small fst-italic text-muted">
+              Vui lòng sao chép mã này vào nội dung chuyển khoản để chúng tôi nhận ra ủng hộ của bạn.
+            </div>
+          </div>
+
+          <div class="col-md-5 text-center border-start d-none d-md-block">
+            <img src="" alt="VietQR" class="img-fluid rounded-3 shadow-sm border mb-3" id="qrCodeImage">
+            <div class="small text-muted fst-italic">
+              Mở ứng dụng ngân hàng và quét mã QR để thanh toán nhanh.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-0 p-4 bg-light">
+        <button type="button" class="btn btn-orange w-100 py-2" data-bs-dismiss="modal">Đã hoàn tất chuyển khoản</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script th:src="@{/js/donation.js}"></script>
+</body>
+</html>

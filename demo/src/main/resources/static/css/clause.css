@@ -1,0 +1,42 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.title-orange {
+    color: #ff6a00;
+}
+
+.clause-content {
+    max-width: 900px;
+}
+
+.clause-text p,
+.clause-text ul {
+    line-height: 1.8;
+}
+
+.clause-text p {
+    margin-bottom: 16px;
+}
+
+.clause-text .list-terms {
+    padding-left: 20px;
+    list-style-type: none;
+}
+
+.clause-text .list-terms li {
+    margin-bottom: 16px;
+}
+
+.clause-text strong {
+    color: #222;
+}
+
+@media (max-width: 768px) {
+    .title-orange {
+        font-size: 28px !important;
+    }
+    .clause-content h5 {
+        font-size: 18px !important;
+    }
+}

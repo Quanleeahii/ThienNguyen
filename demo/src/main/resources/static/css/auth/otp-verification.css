@@ -1,0 +1,32 @@
+body.login-page { background: radial-gradient(circle at center, #ffffff 0%, #fde8d7 100%); margin: 0; padding: 0; }
+.login-container { min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+.back-home-btn { position: absolute; top: 20px; left: 20px; background: #ffffff; color: #ff6a00; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: 500; font-size: 14.5px; border: 1px solid #ffeedb; box-shadow: 0 4px 10px rgba(0,0,0,0.03); z-index: 20; }
+.back-home-btn:hover { background: #fff4ea; color: #ff6a00; }
+.form-box { position: relative; background: #ffffff; padding: 40px; padding-top: 65px; border-radius: 20px; box-shadow: 0 10px 30px rgba(255, 106, 0, 0.08); width: 100%; max-width: 450px; }
+
+.subtitle-text { font-size: 15px; line-height: 1.6; }
+
+.otp-box {
+    width: 50px;
+    height: 55px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.otp-box:focus {
+    background-color: #eef4ff !important;
+    border-color: #b6cbf2 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.btn-orange-gradient { background: linear-gradient(90deg, #ff6a00, #ffb347); color: white; border: none; border-radius: 25px; transition: none !important; }
+.btn-orange-gradient:hover { color: white; box-shadow: none !important; background: linear-gradient(90deg, #ff6a00, #ffb347); transform: none !important; }
+
+.error-text-custom { color: #ff3b30; font-size: 14.5px; margin-bottom: 20px; font-weight: 500; }
+.otp-box.is-invalid { border-color: #dc3545 !important; background-color: #ffffff !important; }
