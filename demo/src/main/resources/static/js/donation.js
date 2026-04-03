@@ -2,99 +2,129 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputAmount = document.getElementById("donationAmount");
     const amountBtns = document.querySelectorAll(".amount-btn");
     const btnOpenModal = document.getElementById("btnOpenModal");
-    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-    const modalDisplayAmount = document.getElementById("modalDisplayAmount");
+    const paymentModalElement = document.getElementById('paymentModal');
+    const paymentModal = new bootstrap.Modal(paymentModalElement, { backdrop: 'static' });
     const qrCodeImage = document.getElementById("qrCodeImage");
-    const bankAccountNumber = document.querySelector(".bank-acc-number")?.innerText.trim() || "8813273033";
-    const bankAccountName = document.querySelector(".bank-acc-name")?.innerText.trim() || "LE ANH QUAN";
-    const bankCode = document.querySelector(".bank-name-short")?.innerText.trim() || "BIDV";
-    inputAmount.addEventListener("input", function (e) {
+
+    const anonymousCheck = document.getElementById("anonymousCheck");
+    const donorNameInput = document.getElementById("donorName");
+    const donorEmailInput = document.getElementById("donorEmail");
+
+    let currentDonationId = null;
+    let checkInterval = null;
+
+    inputAmount.addEventListener("input", function () {
         let value = this.value.replace(/\./g, '').replace(/[^0-9]/g, '');
-        if (value === "") {
-            this.value = "";
-            return;
-        }
+        if (value === "") { this.value = ""; return; }
         this.value = new Intl.NumberFormat('vi-VN').format(value);
         amountBtns.forEach(b => b.classList.remove("active"));
     });
+
     amountBtns.forEach(btn => {
         btn.addEventListener("click", function () {
-            // Xóa active tất cả
             amountBtns.forEach(b => b.classList.remove("active"));
             this.classList.add("active");
             const value = this.getAttribute("data-value");
             inputAmount.value = new Intl.NumberFormat('vi-VN').format(value);
         });
     });
+
+    anonymousCheck.addEventListener("change", function() {
+        donorNameInput.disabled = this.checked;
+        donorEmailInput.disabled = this.checked;
+        if(this.checked) { donorNameInput.value = ""; donorEmailInput.value = ""; }
+    });
+
     btnOpenModal.addEventListener("click", function () {
-        let currentAmountStr = inputAmount.value;
-        let rawAmount = currentAmountStr.replace(/\./g, '');
-        if(!rawAmount || rawAmount === "0") {
-            alert("Vui lòng nhập số tiền hợp lệ!");
-            inputAmount.focus();
+        let rawAmount = inputAmount.value.replace(/\D/g, '');
+        if(!rawAmount || parseInt(rawAmount) < 2000) {
+            alert("Tối thiểu 2.000đ ông ơi!");
             return;
         }
-        let campaignIdElement = document.getElementById("campaignId");
-        if (!campaignIdElement) {
-            alert("Lỗi: Không tìm thấy ID chiến dịch!");
-            return;
-        }
-        let campaignId = campaignIdElement.value;
-        let message = document.getElementById("donationMessage")?.value || "";
-        let donorName = document.getElementById("donorName")?.value || "";
-        let donorEmail = document.getElementById("donorEmail")?.value || "";
-        let isAnonymous = document.getElementById("anonymousCheck")?.checked || false;
-        let originalBtnText = btnOpenModal.innerText;
-        btnOpenModal.innerText = "Đang xử lý...";
+
+        let campaignId = document.getElementById("campaignId").value;
         btnOpenModal.disabled = true;
+
         let formData = new URLSearchParams();
         formData.append('campaignId', campaignId);
         formData.append('amount', rawAmount);
-        if(message) formData.append('message', message);
-        if(donorName) formData.append('fullName', donorName);
-        if(donorEmail) formData.append('email', donorEmail);
-        formData.append('isAnonymous', isAnonymous);
+        formData.append('message', document.getElementById("donationMessage")?.value || "");
+        formData.append('fullName', anonymousCheck.checked ? "Nhà Hảo Tâm Ẩn Danh" : (donorNameInput.value.trim() || "Mạnh Thường Quân"));
+        formData.append('email', donorEmailInput.value || "");
+        formData.append('isAnonymous', anonymousCheck.checked);
+
         fetch('/api/donate', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: formData
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => { throw new Error(err.error || "Lỗi mạng hoặc server") });
-            }
-            return response.json();
-        })
+        .then(res => res.json())
         .then(data => {
             if(data.success) {
-                let transactionCode = data.transactionCode;
-                document.getElementById("transferMemo").innerText = transactionCode;
-                modalDisplayAmount.textContent = currentAmountStr + " VND";
-                let qrApiUrl = `https://img.vietqr.io/image/${bankCode}-${bankAccountNumber}-compact2.png?amount=${rawAmount}&addInfo=${encodeURIComponent(transactionCode)}&accountName=${encodeURIComponent(bankAccountName)}`;
-                qrCodeImage.src = qrApiUrl;
+                currentDonationId = data.donationId;
+                document.getElementById("modalDisplayAmount").textContent = inputAmount.value + " VND";
+
+                document.getElementById("transferMemo").innerText = data.description;
+                document.getElementById("modalAccountNumber").innerText = data.accountNumber;
+                document.getElementById("modalAccountName").innerText = data.accountName;
+
+                qrCodeImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(data.qrCode)}`;
+
+                let payosLinkBtn = document.getElementById("linkCheckoutPayOS");
+                if(payosLinkBtn) payosLinkBtn.href = data.checkoutUrl;
+
                 paymentModal.show();
+                startCheckingThisDonation();
             } else {
-                alert(data.error || "Đã xảy ra lỗi khi tạo giao dịch từ máy chủ!");
+                Swal.fire('Thông báo từ Server', data.error || data.message || 'Lỗi không xác định', 'warning');
             }
         })
-        .catch(error => {
-            console.error('Lỗi AJAX:', error);
-            alert(error.message || "Không thể kết nối đến máy chủ! Vui lòng thử lại.");
+        .catch(err => {
+            console.error("Lỗi:", err);
+            Swal.fire('Lỗi', 'Không kết nối được với Server!', 'error');
         })
         .finally(() => {
-            btnOpenModal.innerText = originalBtnText;
             btnOpenModal.disabled = false;
         });
     });
+
+    function startCheckingThisDonation() {
+        if (checkInterval) clearInterval(checkInterval);
+        checkInterval = setInterval(() => {
+            fetch(`/api/donation/check-status/${currentDonationId}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.isPaid) {
+                        clearInterval(checkInterval);
+                        paymentModal.hide();
+                        updateCampaignUI();
+                        setTimeout(() => {
+                            Swal.fire({ title: 'Thành công! 🎉', text: 'Cảm ơn bạn!', icon: 'success', confirmButtonColor: '#f26b21' });
+                        }, 500);
+                    }
+                });
+        }, 3000);
+    }
+
+    function updateCampaignUI() {
+        let campaignId = document.getElementById("campaignId").value;
+        fetch(`/api/campaign/${campaignId}/stats`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("campaignCurrentAmount").innerText = new Intl.NumberFormat('vi-VN').format(data.currentAmount) + ' VND';
+                document.getElementById("campaignProgressText").innerText = data.progressPercentage + '%';
+                document.getElementById("campaignProgressBar").style.width = data.progressPercentage + '%';
+                document.getElementById("campaignDonationCount").innerText = data.donationCount;
+            });
+    }
+
+    paymentModalElement.addEventListener('hidden.bs.modal', () => { if (checkInterval) clearInterval(checkInterval); });
 });
+
 function copyMemo() {
-    const memoText = document.getElementById("transferMemo").innerText;
-    navigator.clipboard.writeText(memoText).then(() => {
-        alert("Đã sao chép nội dung: " + memoText);
-    }).catch(err => {
-        console.error('Không thể sao chép', err);
-        alert("Trình duyệt của bạn không hỗ trợ copy tự động, vui lòng copy thủ công.");
+    navigator.clipboard.writeText(document.getElementById("transferMemo").innerText).then(() => {
+        let btn = document.querySelector('.copy-badge');
+        btn.innerHTML = 'Đã chép';
+        setTimeout(() => { btn.innerHTML = 'Copy'; }, 2000);
     });
 }

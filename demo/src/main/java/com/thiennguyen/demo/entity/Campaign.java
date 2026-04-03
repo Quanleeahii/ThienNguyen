@@ -41,6 +41,21 @@ public class Campaign {
     @Nationalized
     @Column(name = "bank_account_name")
     private String bankAccountName;
+    // --- CÁC TRƯỜNG PHỤC VỤ GIẢI NGÂN (TẦNG 1) ---
+
+    @Nationalized
+    @Column(name = "disbursement_status")
+    private String disbursementStatus = "PENDING"; // PENDING (Chờ), DISBURSED (Đã giải ngân)
+
+    @Column(name = "disbursed_at")
+    private LocalDateTime disbursedAt; // Thời điểm Admin bấm nút chuyển tiền cho Creator
+
+    @Column(name = "disbursement_evidence")
+    private String disbursementEvidence; // Lưu tên file ảnh Bill ngân hàng (ví dụ: bill_bidv_123.jpg)
+
+    @Nationalized
+    @Column(name = "disbursement_note", columnDefinition = "NVARCHAR(MAX)")
+    private String disbursementNote; // Ghi chú của Admin khi chuyển khoản
     @ManyToOne
     @JoinColumn(name = "creator_id")
     private User creator;
@@ -49,6 +64,7 @@ public class Campaign {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
     @Transient
     public int getProgressPercentage() {
         if (targetAmount == null || targetAmount == 0) {
@@ -76,32 +92,26 @@ public class Campaign {
         updateStatusAutomatically();
     }
     private void updateStatusAutomatically() {
-        if ("paused".equals(this.status)) {
+        if ("disbursed".equals(this.disbursementStatus) || "paused".equals(this.status)) {
             return;
         }
+
         if (this.targetAmount != null && this.currentAmount >= this.targetAmount) {
             this.status = "goal";
-        }
-        else if (this.endDate != null && LocalDateTime.now().isAfter(this.endDate)) {
+        } else if (this.endDate != null && LocalDateTime.now().isAfter(this.endDate)) {
             this.status = "ended";
-        }
-        else {
+        } else {
             this.status = "active";
         }
     }
     @Transient
     public boolean isClosed() {
-        // 1. Kiểm tra trạng thái cứng trong DB (Admin bấm Tạm dừng hoặc Đạt mục tiêu)
-        if ("paused".equals(this.status) || "goal".equals(this.status)) {
+        if ("paused".equals(this.status) || "goal".equals(this.status) || "DISBURSED".equals(this.disbursementStatus)) {
             return true;
         }
-
-        // 2. Kiểm tra Real-time: Nếu ngày hôm nay đã vượt quá ngày kết thúc
         if (this.endDate != null && LocalDateTime.now().isAfter(this.endDate)) {
             return true;
         }
-
-        // Nếu qua hết các ải trên thì chiến dịch vẫn đang chạy ngon lành
         return false;
     }
 }

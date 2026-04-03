@@ -1,9 +1,19 @@
 body {
-    background-color: #f9fafb;
+    background-color: #f5f5f5;
+}
 .campaign-title {
     color: #2b3035;
     line-height: 1.4;
     letter-spacing: -0.5px;
+}
+.main-image {
+    object-fit: cover;
+    max-height: 450px;
+}
+.sticky-sidebar {
+    position: sticky;
+    top: 25px;
+    z-index: 10;
 }
 .tag-box {
     background-color: white;
@@ -13,6 +23,20 @@ body {
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     border: 1px solid #f0f0f0;
+}
+.avatar-organizer {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+.search-donor-group {
+    max-width: 300px;
+}
+
+.search-donor-group .form-control:focus {
+    box-shadow: none !important;
+    border-color: #dee2e6 !important;
+    outline: 0 !important;
 }
 .nav-tabs-custom {
     border-bottom: 2px solid #f0f0f0;
@@ -57,7 +81,62 @@ body {
 .story-text p {
     margin-bottom: 16px;
 }
-.sticky-sidebar {
-    top: 25px !important;
+.donor-table-wrapper {
+    max-height: 300px;
+    overflow-y: auto;
+}
+.donor-table-wrapper thead th {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
     z-index: 10;
+    box-shadow: 0 1px 0px #f0f0f0;
+}
+.donor-table-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+.donor-table-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+.donor-table-wrapper::-webkit-scrollbar-thumb {
+    background: #dce0e4;
+    border-radius: 10px;
+}
+.donor-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #ff6a00;
+}
+.text-primary-orange {
+    color: #ff6a00;
+}
+.progress-custom {
+    height: 8px;
+    border-radius: 10px;
+    background-color: #e9ecef;
+}
+.progress-bar-custom {
+    background: linear-gradient(90deg, #ff6a00, #ffb347);
+    border-radius: 10px;
+}
+.stat-box-bg {
+    background-color: #f8f9fa;
+}
+.btn-donate-action {
+    background: linear-gradient(90deg, #ff6a00, #ffb347);
+    border-radius: 30px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+.btn-donate-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 106, 0, 0.3);
+}
+.btn-donate-disabled {
+    border-radius: 30px;
+    font-size: 1.1rem;
+}
+.donor-name-cell {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

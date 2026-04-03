@@ -126,10 +126,12 @@
     <div class="col-md-6 col-lg-4 mb-4" th:each="campaign : ${campaigns}">
 
       <article class="card border-0 shadow-sm h-100 campaign-card-custom"
+               th:data-campaign-id="${campaign.id}"
                th:classappend="${campaign.closed and campaign.status != 'goal'} ? 'campaign-disabled' : ''">
+
         <a th:href="@{/chien-dich/{id}(id=${campaign.id})}" class="text-decoration-none text-dark d-block h-100">
           <div class="position-relative">
-            <img th:src="${campaign.imageUrl}" class="w-100 campaign-img-custom" th:alt="'Ảnh chiến dịch ' + ${campaign.title}" loading="lazy" />
+            <img th:src="${campaign.imageUrl}" class="w-100 campaign-img-custom" th:alt="'Ảnh ' + ${campaign.title}" loading="lazy" />
 
             <span th:if="${campaign.status == 'ended' or (campaign.closed and campaign.status != 'paused' and campaign.status != 'goal')}"
                   class="badge bg-secondary position-absolute top-0 end-0 m-2 px-3 py-2 shadow-sm z-index-2">
@@ -148,16 +150,16 @@
               <div class="progress-overlay-glass">
                 <div class="flex-grow-1 px-2">
                   <div class="d-flex justify-content-between text-white mb-1 progress-text-style">
-                    <span th:text="${#numbers.formatDecimal(campaign.currentAmount ?: 0, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
-                    <span th:text="${campaign.progressPercentage} + '%'"></span>
+                    <span class="live-amount" th:text="${#numbers.formatDecimal(campaign.currentAmount ?: 0, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                    <span class="live-progress-text" th:text="${campaign.progressPercentage} + '%'"></span>
                   </div>
-                  <div class="progress progress-track-custom" role="progressbar" th:aria-valuenow="${campaign.progressPercentage}" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar progress-bar-gradient"
-                         th:styleappend="'width: ' + ${campaign.progressPercentage} + '%;'"></div>
+                  <div class="progress progress-track-custom">
+                    <div class="progress-bar progress-bar-gradient live-progress-bar"
+                         th:style="'width: ' + ${campaign.progressPercentage} + '%;'"></div>
                   </div>
                 </div>
                 <div class="bg-white rounded-circle d-flex align-items-center justify-content-center ms-2 shadow heart-icon-wrapper">
-                  <i class="fa-solid fa-hand-holding-heart heart-icon-style" aria-hidden="true"></i>
+                  <i class="fa-solid fa-hand-holding-heart heart-icon-style"></i>
                 </div>
               </div>
             </div>
@@ -166,7 +168,7 @@
           <div class="card-body p-3">
             <h3 class="fw-bold mb-2 campaign-title-style" th:text="${campaign.title}"></h3>
             <p class="text-muted mb-0 campaign-meta-style">
-              <span th:text="${campaign.donationCount ?: 0}"></span> lượt ủng hộ •
+              <span class="live-count" th:text="${campaign.donationCount ?: 0}"></span> lượt ủng hộ •
               Còn <span th:text="${campaign.daysRemaining}"></span> ngày
             </p>
           </div>

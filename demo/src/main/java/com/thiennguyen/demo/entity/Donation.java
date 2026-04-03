@@ -4,6 +4,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Nationalized;
+
 import java.time.LocalDateTime;
 @Entity
 @Table(name = "donations")
@@ -13,7 +15,9 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Double amount;
+    @Nationalized
     private String message;
+    @Nationalized
     @Column(name = "full_name")
     private String fullName;
     private String email;

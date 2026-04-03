@@ -2,7 +2,7 @@ package com.thiennguyen.demo.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Nationalized;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,8 +13,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String role;
-    private String status;
+    private String role = "ROLE_USER";
+    private String status = "INACTIVE";
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
     @Column(name = "updated_at")
@@ -34,7 +34,8 @@ public class User {
     private String avatar;
     @Nationalized
     private String address;
-    @Column(columnDefinition = "TEXT")
+    @Nationalized
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String bio;
     @Column(name = "link_fb")
     private String linkFb;
@@ -46,7 +47,13 @@ public class User {
     private String contactEmail;
     @Column(name = "social_link")
     private String socialLink;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
+    @Column(name = "otp_code")
+    private String otpCode;
+
+    @Column(name = "otp_expiry_time")
+    private LocalDateTime otpExpiryTime;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Notification> notifications;
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)

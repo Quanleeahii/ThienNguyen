@@ -12,14 +12,28 @@
 <body class="login-page">
 <div class="login-container">
   <div class="form-box">
-    <a th:href="@{/dat-lai-mat-khau}" class="back-home-btn">
-      <i class="fa-solid fa-arrow-left me-1"></i> Quay lại
-    </a>
+
+    <th:block th:if="${session.otpType == 'REGISTER'}">
+      <a th:href="@{/dang-ky}" class="back-home-btn">
+        <i class="fa-solid fa-arrow-left me-1"></i> Quay lại Đăng ký
+      </a>
+    </th:block>
+
+    <th:block th:if="${session.otpType == 'FORGOT_PASSWORD'}">
+      <a th:href="@{/quen-mat-khau}" class="back-home-btn">
+        <i class="fa-solid fa-arrow-left me-1"></i> Quay lại Quên mật khẩu
+      </a>
+    </th:block>
     <h2 class="mb-3 fw-bold mt-3">Xác thực OTP</h2>
-    <p class="text-muted mb-4 subtitle-text">
-      Vui lòng nhập mã xác thực gồm 6 chữ số đã được gửi đến email:<br>
-      <span class="fw-bold" style="color: #ff6a00;" th:text="${email}"></span>
-    </p>
+    <div class="text-center mb-3">
+    <span id="countdown-timer" class="badge bg-light text-dark border p-2 fs-6">
+        <i class="fa-regular fa-clock text-warning me-1"></i> Thời gian còn lại: <strong id="time" class="text-danger">05:00</strong>
+    </span>
+    </div>
+    <div id="resend-container" class="text-center mb-3" style="display: none;">
+      <p class="text-muted mb-1">Không nhận được mã?</p>
+      <a th:href="@{/dang-ky}" class="text-decoration-none fw-bold" style="color: #ff6a00;">Gửi lại mã OTP</a>
+    </div>
     <p th:if="${error}" class="error-text-custom text-center">
       <i class="fa-solid fa-circle-exclamation me-1"></i> <span th:text="${error}"></span>
     </p>

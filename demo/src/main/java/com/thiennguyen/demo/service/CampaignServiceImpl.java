@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,5 +46,23 @@ public class CampaignServiceImpl implements CampaignService {
             categoryCounts.put(catId, count);
         }
         return categoryCounts;
+    }
+    @Override
+    @Transactional
+    public void plusAmount(Integer campaignId, Double amount) {
+        // 1. Tìm chiến dịch trong DB
+        Campaign campaign = campaignRepository.findById(campaignId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy chiến dịch"));
+
+        // 2. Cộng số tiền mới vào tổng tiền hiện tại
+        Double currentAmount = campaign.getCurrentAmount() != null ? campaign.getCurrentAmount() : 0.0;
+        campaign.setCurrentAmount(currentAmount + amount);
+
+        // 3. Tăng số lượt người ủng hộ lên 1
+        Integer currentCount = campaign.getDonationCount() != null ? campaign.getDonationCount() : 0;
+        campaign.setDonationCount(currentCount + 1);
+
+        // 4. Lưu lại vào Database
+        campaignRepository.save(campaign);
     }
 }

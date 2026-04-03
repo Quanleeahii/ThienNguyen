@@ -1,0 +1,50 @@
+/* Container chính */
+.settings-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Ảnh đại diện */
+.avatar-large {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+}
+
+/* Link màu cam thương hiệu */
+.text-orange {
+    color: #ff6a00;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.text-orange:hover {
+    color: #e65c00;
+    text-decoration: underline;
+}
+
+/* Dòng cài đặt */
+.setting-item {
+    padding: 18px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+/* Chỉnh màu cho công tắc Toggle Bootstrap */
+.form-check-input:checked {
+    background-color: #ff6a00;
+    border-color: #ff6a00;
+}
+
+.form-switch .form-check-input {
+    width: 2.5em;
+    height: 1.25em;
+    cursor: not-allowed; /* Chuột cấm vì đã disabled */
+    opacity: 1 !important; /* Giữ màu cam rực rỡ dù bị disabled */
+}

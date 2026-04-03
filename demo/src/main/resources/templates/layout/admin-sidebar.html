@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="sidebar" class="admin-sidebar shadow-sm">
+  <a th:href="@{/admin/dashboard}" class="brand d-flex align-items-center justify-content-center text-decoration-none">
+    <i class="fa-solid fa-shield-halved text-warning me-2 fs-4"></i>
+    <span>Ươm Mầm Admin</span>
+  </a>
+
+  <nav class="nav flex-column mt-4">
+    <a th:href="@{/admin/dashboard}" class="nav-link" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
+      <i class="fa-solid fa-chart-pie w-20px me-3 text-center"></i> Tổng quan
+    </a>
+
+    <a th:href="@{/admin/users}" class="nav-link" th:classappend="${activePage == 'users'} ? 'active' : ''">
+      <i class="fa-solid fa-users w-20px me-3 text-center"></i> Quản lý User
+    </a>
+
+    <a th:href="@{/admin/manage-campaign-statements}" class="nav-link" th:classappend="${activePage == 'statements'} ? 'active' : ''">
+      <i class="fa-solid fa-receipt w-20px me-3 text-center"></i> Sao kê & Giải ngân
+    </a>
+
+    <a th:href="@{/admin/campaigns}" class="nav-link" th:classappend="${activePage == 'campaigns'} ? 'active' : ''">
+      <i class="fa-solid fa-box-open w-20px me-3 text-center"></i> Quản lý Chiến dịch
+    </a>
+
+    <hr style="border-color: rgba(255,255,255,0.1); margin: 25px 15px;">
+
+    <a th:href="@{/dang-xuat}" class="nav-link text-danger fw-bold hover-danger">
+      <i class="fa-solid fa-right-from-bracket w-20px me-3 text-center"></i> Đăng xuất
+    </a>
+  </nav>
+</div>
+</body>
+</html>

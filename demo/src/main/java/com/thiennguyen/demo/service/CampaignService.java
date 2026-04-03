@@ -10,4 +10,6 @@ public interface CampaignService {
     Campaign saveCampaign(Campaign campaign);
     List<Campaign> getAllCampaigns();
     Map<Integer, Long> getCategoryCounts(String keyword, String status, String type);
+    // Hàm dùng để cộng tiền khi PayOS báo ting ting
+    void plusAmount(Integer campaignId, Double amount);
 }

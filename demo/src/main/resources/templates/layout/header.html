@@ -70,12 +70,19 @@
 
           <div th:if="${session.loggedInUser != null}" class="dropdown">
             <a class="text-decoration-none dropdown-toggle d-flex align-items-center fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img th:src="@{/images/default-avatar.png}" alt="Avatar" class="rounded-circle me-2" style="width: 36px; height: 36px; object-fit: cover; border: 1px solid #e0e0e0;">
+              <img th:src="${#strings.isEmpty(session.loggedInUser.avatar) ? '/images/default-avatar.svg' : '/upload_img/avatars/' + session.loggedInUser.avatar}"
+                   alt="Avatar" class="rounded-circle me-2"
+                   style="width: 36px; height: 36px; object-fit: cover; border: 1px solid #e0e0e0;">
               <span th:text="${session.loggedInUser.fullName}"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-3" style="border-radius: 12px; min-width: 200px;">
-              <li><a class="dropdown-item py-2" href="#"><i class="fa-regular fa-user me-2 text-muted"></i> Hồ sơ cá nhân</a></li>
+
+              <li><a class="dropdown-item py-2" th:href="@{/profile}"><i class="fa-regular fa-user me-2 text-muted"></i> Chỉnh sửa thông tin cá nhân</a></li>
+
+              <li><a class="dropdown-item py-2" th:href="@{/settings}"><i class="fa-solid fa-gear me-2 text-muted"></i> Cài đặt tài khoản</a></li>
+
               <li><a class="dropdown-item py-2" href="#"><i class="fa-solid fa-clock-rotate-left me-2 text-muted"></i> Lịch sử hoạt động</a></li>
+
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item py-2 text-danger fw-bold" th:href="@{/dang-xuat}"><i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất</a></li>
             </ul>

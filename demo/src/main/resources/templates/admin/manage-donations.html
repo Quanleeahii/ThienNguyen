@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Giao dịch - Ươm Mầm Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+</head>
+<body>
+
+<div th:replace="~{layout/admin-sidebar :: sidebar(activePage='donations')}"></div>
+
+<div class="admin-main-content bg-light">
+
+    <div class="admin-header d-flex justify-content-between align-items-center mb-4 p-3 bg-white shadow-sm rounded-3">
+        <h5 class="mb-0 fw-bold text-secondary">SỔ CÁI GIAO DỊCH (SAO KÊ)</h5>
+        <div class="d-flex align-items-center">
+            <span class="me-3 fw-medium text-dark" th:text="${session.loggedInUser.fullName}">Admin Name</span>
+            <img th:src="${#strings.isEmpty(session.loggedInUser.avatar) ? '/images/default-avatar.svg' : '/upload_img/avatars/' + session.loggedInUser.avatar}"
+                 class="rounded-circle border border-2 border-white shadow-sm" style="width: 45px; height: 45px; object-fit: cover;">
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 mb-4 p-3 bg-white">
+        <form th:action="@{/admin/donations}" method="GET" class="row g-3 align-items-center">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                    <input type="text" name="keyword" th:value="${keyword}" class="form-control border-start-0 bg-light" placeholder="Mã giao dịch, Email người gửi...">
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <button type="button" class="btn btn-success fw-medium shadow-sm"><i class="fa-solid fa-file-excel me-1"></i> Xuất Sao kê Excel</button>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary px-4 fw-medium shadow-sm w-100"><i class="fa-solid fa-filter me-1"></i> Lọc dữ liệu</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th class="px-4 py-3">Mã đơn</th>
+                        <th class="py-3">Người ủng hộ</th>
+                        <th class="py-3">Số tiền</th>
+                        <th class="py-3">Chiến dịch</th>
+                        <th class="py-3">Thời gian</th>
+                        <th class="py-3 text-center">Trạng thái</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d : ${donations}">
+                        <td class="px-4 fw-bold text-muted" th:text="'#' + ${d.id}">101</td>
+                        <td>
+                            <div class="fw-bold text-dark" th:text="${d.isAnonymous ? 'Ẩn danh (' + d.fullName + ')' : d.fullName}">Tên Người Gửi</div>
+                            <small class="text-muted" th:text="${d.email}">email@example.com</small>
+                        </td>
+                        <td class="fw-bold text-primary">
+                            <span th:text="${#numbers.formatDecimal(d.amount, 0, 'COMMA', 0, 'POINT')} + ' đ'">50,000 đ</span>
+                        </td>
+                        <td style="max-width: 250px;">
+                            <span class="text-truncate d-inline-block w-100" th:text="${d.campaign.title}" th:title="${d.campaign.title}">Tiêu đề chiến dịch</span>
+                        </td>
+                        <td class="small" th:text="${#temporals.format(d.donationTime, 'dd/MM/yyyy HH:mm:ss')}">01/01/2026</td>
+                        <td class="text-center">
+              <span th:if="${d.status == 'PAID'}" class="badge bg-success bg-opacity-10 text-success border border-success px-3 py-2 rounded-pill">
+                <i class="fa-solid fa-check-circle me-1"></i> Thành công
+              </span>
+                            <span th:if="${d.status == 'PENDING'}" class="badge bg-warning bg-opacity-10 text-warning border border-warning px-3 py-2 rounded-pill">
+                <i class="fa-solid fa-clock me-1"></i> Chờ duyệt
+              </span>
+                        </td>
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(donations)}">
+                        <td colspan="6" class="text-center py-4 text-muted">Chưa có giao dịch nào được ghi nhận.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

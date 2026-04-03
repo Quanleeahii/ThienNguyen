@@ -1,0 +1,91 @@
+/* TABS PHÂN LOẠI */
+.btn-tab {
+    padding: 8px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #6c757d;
+    font-weight: 500;
+    transition: 0.3s;
+    border: 1px solid #dee2e6;
+}
+.btn-tab:hover { background-color: #f8f9fa; }
+.btn-tab.active {
+    background-color: #fd7e14;
+    color: white;
+    border-color: #fd7e14;
+    box-shadow: 0 4px 10px rgba(253, 126, 20, 0.3);
+}
+
+/* LOẠI CHIẾN DỊCH */
+.badge-type {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.badge-type.org { background: #e3f2fd; color: #0d6efd; }
+.badge-type.person { background: #f3e5f5; color: #9c27b0; }
+
+/* TRẠNG THÁI GIẢI NGÂN */
+.status-pill {
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.status-pill.waiting { background: #fff3cd; color: #856404; }
+.status-pill.done { background: #d1e7dd; color: #0f5132; }
+
+/* NÚT HÀNH ĐỘNG */
+.btn-action {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+.btn-action.view { background: #f0f7ff; color: #007bff; border: 1px solid #cce5ff; }
+.btn-action.pay { background: #fff5f5; color: #dc3545; border: 1px solid #f8d7da; }
+.btn-action:hover { transform: translateY(-2px); }
+
+/* MODAL */
+.amount-box {
+    background: #fff5f5;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 5px solid #dc3545;
+}
+.creator-link {
+    text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+}
+.creator-link:hover { color: #0d6efd; }
+/* LÀM ĐẬM VIỀN VÀ XÓA VIỀN XANH BOOTSTRAP */
+.form-control, .form-select {
+    border: 1.5px solid #ced4da !important; /* Viền đậm hơn */
+    transition: all 0.2s ease-in-out;
+}
+
+/* Khi click vào: hiện viền cam, xóa bóng xanh */
+.form-control:focus, .form-select:focus {
+    border-color: #fd7e14 !important; /* Màu cam theo tone web của ông */
+    box-shadow: none !important;      /* Xóa cái bóng xanh mặc định */
+    outline: none !important;
+}
+
+/* Định dạng Pagination */
+.pagination .page-link {
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+    margin: 0 2px;
+    border-radius: 6px;
+}
+.pagination .page-item.active .page-link {
+    background-color: #fd7e14;
+    border-color: #fd7e14;
+    color: white;
+}

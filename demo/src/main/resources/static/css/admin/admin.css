@@ -1,0 +1,90 @@
+/* =======================================================
+   CSS DÀNH RIÊNG CHO TRANG ADMIN
+   ======================================================= */
+
+:root {
+    --sidebar-width: 260px;
+    --sidebar-bg: #212529; /* Màu nền đen xám ngầu lòi cho Sidebar */
+    --sidebar-hover: #343a40; /* Màu khi di chuột qua menu */
+    --active-color: #0d6efd; /* Màu xanh biển Bootstrap khi đang chọn menu */
+}
+
+body {
+    background-color: #f8f9fa; /* Màu nền xám nhạt cho toàn trang (bg-light) */
+    overflow-x: hidden; /* Chống cuộn ngang làm vỡ layout */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* -----------------------------------------
+   1. KHU VỰC SIDEBAR (MENU TRÁI)
+----------------------------------------- */
+.admin-sidebar {
+    width: var(--sidebar-width);
+    height: 100vh; /* Cao bằng 100% màn hình */
+    background-color: var(--sidebar-bg);
+    position: fixed; /* Cố định vị trí, không bị cuộn theo trang */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding-top: 20px;
+    transition: all 0.3s ease; /* Hiệu ứng mượt mà */
+}
+
+/* Chữ Logo Ươm Mầm */
+.admin-sidebar .brand {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+/* Các thẻ a trong menu */
+.admin-sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.7); /* Chữ xám mờ */
+    border-radius: 8px; /* Bo góc nút bấm */
+    margin: 5px 15px;
+    padding: 12px 20px;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+/* Khi di chuột qua (Hover) */
+.admin-sidebar .nav-link:hover {
+    color: #ffffff;
+    background-color: var(--sidebar-hover);
+}
+
+/* Khi đang ở trang đó (Active) */
+.admin-sidebar .nav-link.active {
+    color: #ffffff;
+    background-color: var(--active-color);
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3); /* Đổ bóng nhẹ cho nút đang chọn */
+}
+
+/* Custom cho nút Đăng xuất màu đỏ */
+.admin-sidebar .nav-link.hover-danger:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545 !important;
+}
+
+/* Chỉnh độ rộng của các icon để chữ thẳng hàng nhau */
+.w-20px {
+    width: 25px;
+    text-align: center;
+}
+
+/* -----------------------------------------
+   2. KHU VỰC NỘI DUNG CHÍNH (BÊN PHẢI)
+----------------------------------------- */
+.admin-main-content {
+    margin-left: var(--sidebar-width); /* Phải đẩy lùi sang phải một khoảng bằng đúng độ rộng của Sidebar */
+    padding: 25px;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Ép ảnh Avatar luôn tròn vành vạnh */
+.admin-header img {
+    background-color: #fff;
+}

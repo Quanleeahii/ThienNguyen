@@ -34,6 +34,24 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
             @Param("type") String type,
             Pageable pageable
     );
+    @Query("SELECT c FROM Campaign c WHERE " +
+            "(:keyword IS NULL OR c.title LIKE %:keyword% OR c.creator.fullName LIKE %:keyword%) AND " + // Thêm search theo creator
+            "(:type IS NULL OR c.type = :type) AND " +
+            "(:disbursementStatus IS NULL OR c.disbursementStatus = :disbursementStatus) AND " +
+            "(:status IS NULL OR " +
+            "   (:status = 'active' AND c.status = 'active' AND (c.endDate IS NULL OR c.endDate >= CURRENT_TIMESTAMP)) OR " +
+            "   (:status = 'ended'  AND (c.status = 'ended' OR (c.status = 'active' AND c.endDate < CURRENT_TIMESTAMP))) OR " +
+            "   (:status = 'goal'   AND c.status = 'goal') OR " +
+            "   (:status = 'paused' AND c.status = 'paused')" +
+            ") " +
+            "ORDER BY c.startDate DESC")
+    Page<Campaign> filterForAdmin(
+            @Param("keyword") String keyword,
+            @Param("status") String status,
+            @Param("type") String type,
+            @Param("disbursementStatus") String disbursementStatus,
+            Pageable pageable
+    );
     @Query("SELECT c.category.id, COUNT(c) FROM Campaign c WHERE " +
             "(:keyword IS NULL OR c.title LIKE %:keyword%) AND " +
             "(:type IS NULL OR c.type = :type) AND " +

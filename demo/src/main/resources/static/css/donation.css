@@ -8,6 +8,7 @@ body {
     background-color: var(--bg-light);
 }
 
+/* --- Layout & Components --- */
 .card-custom {
     border: none;
     border-radius: 1rem;
@@ -15,6 +16,30 @@ body {
     background: #fff;
 }
 
+/* --- Typography & Colors --- */
+.text-orange,
+#campaignCurrentAmount,
+#campaignProgressText {
+    color: var(--primary-orange) !important;
+}
+
+/* Chỉ gạch chân khi là liên kết (Điều khoản) */
+a.text-orange {
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+a.text-orange:hover {
+    color: var(--hover-orange) !important;
+    text-decoration: underline !important;
+}
+
+/* Triệt tiêu gạch chân cho phần trăm đạt được */
+#campaignProgressText {
+    text-decoration: none !important;
+}
+
+/* --- Buttons --- */
 .btn-orange {
     background-color: var(--primary-orange);
     color: white;
@@ -27,9 +52,15 @@ body {
 .btn-orange:hover {
     background-color: var(--hover-orange);
     color: white;
-    transform: translateY(-2px);
+    /* Đã bỏ transform để không bị nhảy */
 }
 
+.btn:disabled, .btn-secondary:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* --- Form Elements --- */
 .amount-btn {
     border: 1px solid #dee2e6;
     border-radius: 8px;
@@ -45,18 +76,50 @@ body {
     background-color: #fff4ef;
 }
 
+.amount-input-group .form-control,
+.amount-input-group .input-group-text {
+    background: white;
+    color: var(--primary-orange);
+    font-weight: bold;
+}
+
 .amount-input-group .form-control {
     font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-orange);
     border-right: none;
 }
 
 .amount-input-group .input-group-text {
-    background: white;
     border-left: none;
+}
+
+.form-control:focus,
+.form-check-input:focus,
+.amount-input-group .form-control:focus + .input-group-text {
+    box-shadow: none !important;
+    border-color: var(--primary-orange) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-orange);
+    border-color: var(--primary-orange);
+}
+
+/* --- Modal & Utilities --- */
+.copy-badge {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #495057;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.copy-badge:hover {
+    background-color: #e9ecef;
+    border-color: var(--primary-orange);
     color: var(--primary-orange);
-    font-weight: bold;
 }
 
 .modal-header-custom {
@@ -69,17 +132,35 @@ body {
     filter: invert(1) grayscale(100%) brightness(200%);
 }
 
-.copy-btn {
-    cursor: pointer;
-    color: var(--primary-orange);
-    transition: 0.2s;
+.creator-avatar { width: 50px; height: 50px; object-fit: cover; }
+.creator-label { font-size: 0.85rem; }
+.campaign-thumbnail { object-fit: cover; height: 220px; }
+.progress-custom-height { height: 8px; }
+.switch-custom-size { width: 2.5em; height: 1.25em; cursor: pointer; }
+.cursor-pointer { cursor: pointer; }
+.modal-section-title { font-size: 0.8rem; letter-spacing: 1px; }
+.letter-spacing-wide { letter-spacing: 1px; }
+
+.modal-qr-section {
+    background-color: #f8f9fa;
+    border-left: 1px dashed #dee2e6;
 }
 
-.copy-btn:hover {
-    color: var(--hover-orange);
-    transform: scale(1.1);
+.qr-code-img {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+}
+
+.progress-orange {
+    background-color: #f0f0f0 !important;
+    border-radius: 50rem !important;
+    height: 10px !important;
+    overflow: hidden;
 }
 
 .progress-orange .progress-bar {
-    background-color: var(--primary-orange);
+    background: linear-gradient(90deg, #ff6a00 0%, #ffb74d 100%) !important;
+    border-radius: 50rem !important;
+    transition: width 0.8s ease-in-out;
 }
